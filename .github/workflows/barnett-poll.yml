@@ -1,0 +1,73 @@
+name: Barnett Party Poll — New Federal Cases
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'poll or bootstrap'
+        required: true
+        default: 'poll'
+        type: choice
+        options:
+          - poll
+          - bootstrap
+      hours:
+        description: 'bootstrap lookback hours'
+        required: false
+        default: '48'
+  schedule:
+    # Times tuned for EDT (UTC-4). Under EST (Nov-Mar, UTC-5) everything lands
+    # one hour LATER in ET (8:19am-8:49pm daytime window) — edit hours by -1 in
+    # November if the 7am start matters. Minute :19/:49 avoids cron collisions
+    # with the other Av Tools repos.
+    - cron: '19,49 11-23 * * *'    # every 30 min, 7:19am-7:49pm ET
+    - cron: '19 1,3,5,7,9 * * *'   # overnight every 2h: 9:19pm, 11:19pm, 1:19am, 3:19am, 5:19am ET
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run barnett scanner
+        env:
+          CL_TOKEN: ${{ secrets.CL_TOKEN }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+        run: |
+          MODE="${{ github.event.inputs.mode || 'poll' }}"
+          if [ "$MODE" = "bootstrap" ]; then
+            python poll_barnett_cases.py bootstrap --hours=${{ github.event.inputs.hours || '48' }}
+          else
+            python poll_barnett_cases.py poll --live
+          fi
+
+      - name: Commit + push if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scan_state.json matched_cases.jsonl poll_log.txt 2>/dev/null || true
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "Auto: barnett poll $(date -u +'%Y-%m-%d %H:%M UTC')"
+          ok=0
+          for i in 1 2 3; do
+            if git pull --rebase origin main && git push; then ok=1; break; fi
+            sleep $((i * 7))
+          done
+          if [ "$ok" != "1" ]; then echo "push failed after 3 attempts" >&2; exit 1; fi

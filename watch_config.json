@@ -1,0 +1,10 @@
+{
+  "_comment": "Matching config for barnett-alert. Patterns are case-insensitive regexes tested against the FULL case caption (either side of ' v. '), so a match on the plaintiff OR the defendant counts. Order: exclude (hard reject, checked first) -> names (must match at least one). Edit freely, then run: python poll_barnett_cases.py test-patterns",
+  "recency_days": 7,
+  "pending_max_days": 3,
+  "names": [
+    {"pattern": "\\bchristopher\\s+(m\\.?\\s+)?barnett\\b", "label": "Christopher Barnett"},
+    {"pattern": "\\bbarnett,\\s+christopher(\\s+m\\.?)?\\b", "label": "Christopher Barnett (last, first)"}
+  ],
+  "exclude": []
+}
