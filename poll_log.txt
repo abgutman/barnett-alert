@@ -1,0 +1,5 @@
+[2026-09-08 13:51:42 ET] === Poll start (cursor id>74758447, live=True) ===
+[2026-09-08 13:51:44 ET]   walked 3 pages, 50 dockets, 0 matches, 0 pending
+[2026-09-08 13:51:44 ET]   no new matches — no email
+[2026-09-08 13:51:44 ET] === Poll done. 0 new matched case(s). ===
+
