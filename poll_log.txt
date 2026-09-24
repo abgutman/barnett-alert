@@ -513,3 +513,8 @@
 [2026-09-24 02:14:34 ET]   no new matches — no email
 [2026-09-24 02:14:34 ET] === Poll done. 0 new matched case(s). ===
 
+[2026-09-24 08:46:04 ET] === Poll start (cursor id>74843501, live=True) ===
+[2026-09-24 08:46:08 ET]   walked 4 pages, 67 dockets, 0 matches, 0 pending
+[2026-09-24 08:46:08 ET]   no new matches — no email
+[2026-09-24 08:46:08 ET] === Poll done. 0 new matched case(s). ===
+
