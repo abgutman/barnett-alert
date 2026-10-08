@@ -896,3 +896,9 @@
 [2026-10-08 13:53:10 ET]   no new matches — no email
 [2026-10-08 13:53:10 ET] === Poll done. 0 new matched case(s). ===
 
+[2026-10-08 19:21:10 ET] === Poll start (cursor id>74937734, live=True) ===
+[2026-10-08 19:22:54 ET]   CURSOR CAP hit at 100 pages — backlog resumes next run
+[2026-10-08 19:22:54 ET]   walked 100 pages, 2000 dockets, 0 matches, 0 pending
+[2026-10-08 19:22:54 ET]   no new matches — no email
+[2026-10-08 19:22:54 ET] === Poll done. 0 new matched case(s). ===
+
