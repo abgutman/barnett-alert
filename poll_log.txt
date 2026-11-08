@@ -1733,3 +1733,8 @@
 [2026-11-08 03:28:58 ET]   no new matches — no email
 [2026-11-08 03:28:58 ET] === Poll done. 0 new matched case(s). ===
 
+[2026-11-08 12:03:48 ET] === Poll start (cursor id>75063811, live=True) ===
+[2026-11-08 12:03:48 ET]   walked 1 pages, 0 dockets, 0 matches, 0 pending
+[2026-11-08 12:03:48 ET]   no new matches — no email
+[2026-11-08 12:03:48 ET] === Poll done. 0 new matched case(s). ===
+
